@@ -14,6 +14,10 @@ public class Cart {
         return items.add(item);
     }
 
+    public boolean deleteItem(String productId) {
+        return items.removeIf((item -> item.getProduct().getId().equals(productId)));
+    }
+
     @Override
     public String toString() {
         if (items.size() ==0){
