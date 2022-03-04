@@ -56,7 +56,6 @@ public class PosServiceImp implements PosService {
 
     @Override
     public boolean modify(String productId, int amount) {
-
         if (this.getCart().deleteItem(productId)) {
             this.getCart().addItem(new Item(posDB.getProduct(productId), amount));
             return true;

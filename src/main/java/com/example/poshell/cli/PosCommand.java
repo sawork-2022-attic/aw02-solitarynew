@@ -34,6 +34,9 @@ public class PosCommand {
 
     @ShellMethod(value = "Add a Product to Cart", key = "a")
     public String addToCart(String productId, int amount) {
+        if (posService.getCart() == null) {
+            return "Cart has not been created";
+        }
         if (posService.add(productId, amount)) {
             return posService.getCart().toString();
         }
@@ -44,18 +47,24 @@ public class PosCommand {
     public String ShowProducts() {
         Cart cart = posService.getCart();
         if (cart == null) {
-            return "Error";
+            return "Cart has not been created";
         }
         return cart.toString();
     }
 
     @ShellMethod(value = "Empty Cart", key = "e")
     public String emptyCart() {
-        return posService.newCart() + "OK";
+        if (posService.getCart() == null) {
+            return "Cart has not been created";
+        }
+        return posService.newCart() + " OK";
     }
 
     @ShellMethod(value = "Modify a Product from Cart", key = "m")
     public String modifyCart(String productId, int amount){
+        if (posService.getCart() == null) {
+            return "Cart has not been created";
+        }
         if (posService.modify(productId, amount)) {
             return posService.getCart().toString();
         }
